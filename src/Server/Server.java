@@ -7,6 +7,8 @@ import SqlMappings.MySqlUsersEntity;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
@@ -31,6 +33,16 @@ public class Server {
 
     public ConcurrentHashMap<MySqlUsersEntity, ClientWriter> getClientsConnectedMap() {
         return clientsConnectedMap;
+    }
+
+    public ClientWriter getUserClient(String username){
+        Map.Entry entry = clientsConnectedMap.entrySet()
+                .stream()
+                .filter(e -> e.getKey().getUsername().equalsIgnoreCase(username))
+                .findFirst()
+                .orElse(null);
+
+        return (ClientWriter) Objects.requireNonNull(entry).getValue();
     }
 
     /**
