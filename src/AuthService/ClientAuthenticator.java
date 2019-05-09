@@ -46,8 +46,9 @@ public class ClientAuthenticator {
         if (UserDao.OUR_INSTANCE.exists(user)){
             // server.addUserToClientsConnected(user)
             Server.OUR_INSTANCE.addClient(user, clientWriter);
+            responseStatus = EResponseStatus.OK;
         }
-
+        clientWriter.setUser(user);
         clientWriter.writeResponse(new ClientResponse(responseStatus));
     }
 }

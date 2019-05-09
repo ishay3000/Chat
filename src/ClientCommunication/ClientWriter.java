@@ -19,7 +19,7 @@ public class ClientWriter {
     private final Gson gson = new Gson();
     private Socket clientSocket;
     DataOutputStream outputStream;
-
+    private MySqlUsersEntity user;
 
     // endregion
 
@@ -31,6 +31,14 @@ public class ClientWriter {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public MySqlUsersEntity getUser() {
+        return user;
+    }
+
+    public void setUser(MySqlUsersEntity user) {
+        this.user = user;
     }
 
     public void writeResponse(ClientResponse response){
@@ -46,6 +54,13 @@ public class ClientWriter {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void unicast(BaseMessage message){
+        UnicastMessage unicastMessage = (UnicastMessage)message;
+        unicastMessage.setSender(user.getUsername());
+
+        writeMessage(unicastMessage);
     }
 
     public void broadcast(BaseMessage message){

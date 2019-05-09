@@ -21,6 +21,7 @@ public class RequestHandler {
     private void initMethods() {
         methodMap.put(EMessageType.LOGIN, clientAuthenticator::authenticateLogin);
         methodMap.put(EMessageType.REGISTER, clientAuthenticator::authenticateRegistration);
+        methodMap.put(EMessageType.UNICAST, clientWriter::unicast);
     }
 
     public void handle(BaseMessage message){
