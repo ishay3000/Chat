@@ -65,12 +65,13 @@ public class ClientWriter {
     }
 
     public void broadcast(BaseMessage message){
+        BroadcastMessage broadcastMessage = (BroadcastMessage)message;
         ConcurrentHashMap map = Server.OUR_INSTANCE.getClientsConnectedMap();
         Collection<ClientWriter> values = map.values();
 
         values.stream()
                 .filter(writer -> writer != this)
-                .forEach(writer -> writer.writeMessage(message));
+                .forEach(writer -> writer.writeMessage(broadcastMessage));
     }
 
     public void writeMessage(BaseMessage message){

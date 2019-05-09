@@ -1,15 +1,13 @@
 package ClientCommunication;
 
-public class UnicastMessage extends BaseMessage {
+public class UnicastMessage extends TextMessage {
     public String Sender;
     public String Receiver;
-    public String Content;
 
-    public UnicastMessage(EMessageType messageType, String sender, String receiver, String content) {
-        super(messageType);
+    public UnicastMessage(EMessageType messageType, String content, String sender, String receiver) {
+        super(messageType, content);
         Sender = sender;
         Receiver = receiver;
-        Content = content;
     }
 
     public String getSender() {
