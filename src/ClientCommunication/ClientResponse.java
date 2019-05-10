@@ -1,15 +1,15 @@
 package ClientCommunication;
 
 public class ClientResponse {
-    public EResponseStatus responseStatus;
+    public EResponseStatus Status;
     public String Cause;
 
     public ClientResponse(EResponseStatus responseStatus, String cause) {
-        this.responseStatus = responseStatus;
+        this.Status = responseStatus;
         Cause = cause;
     }
 
     public ClientResponse(EResponseStatus responseStatus) {
-        this.responseStatus = responseStatus;
+        this.Status = responseStatus;
     }
 }

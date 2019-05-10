@@ -9,10 +9,6 @@ import Server.Server;
 import SqlMappings.MySqlUsersEntity;
 import com.google.gson.Gson;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
-
 public class ClientAuthenticator {
     private ClientWriter clientWriter;
     private final Gson gson = new Gson();
@@ -27,11 +23,11 @@ public class ClientAuthenticator {
 
     public void authenticateRegistration(BaseMessage message){
         AuthMessage registerMessage = (AuthMessage)message;
-        MySqlUsersEntity user = new MySqlUsersEntity(registerMessage.username, registerMessage.password);
+        MySqlUsersEntity user = new MySqlUsersEntity(registerMessage.Username, registerMessage.Password);
 
         EResponseStatus responseStatus = EResponseStatus.ERROR;
         // register to db via dao
-        if (UserDao.OUR_INSTANCE.add(user)){
+        if (UserDao.getOurInstance().add(user)){
             responseStatus = EResponseStatus.OK;
         }
         clientWriter.writeResponse(new ClientResponse(responseStatus));
@@ -39,11 +35,11 @@ public class ClientAuthenticator {
 
     public void authenticateLogin(BaseMessage message){
         AuthMessage loginMessage = (AuthMessage)message;
-        MySqlUsersEntity user = new MySqlUsersEntity(loginMessage.username, loginMessage.password);
+        MySqlUsersEntity user = new MySqlUsersEntity(loginMessage.Username, loginMessage.Password);
 
         EResponseStatus responseStatus = EResponseStatus.ERROR;
         // login via dao
-        if (UserDao.OUR_INSTANCE.exists(user)){
+        if (UserDao.getOurInstance().exists(user)){
             // server.addUserToClientsConnected(user)
             Server.OUR_INSTANCE.addClient(user, clientWriter);
             responseStatus = EResponseStatus.OK;

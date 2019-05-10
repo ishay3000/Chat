@@ -9,7 +9,7 @@ public class SessionCommunication {
     private RequestHandler requestHandler;
     private ClientReader clientReader;
     private ClientWriter clientWriter;
-
+    private boolean isRunning = true;
 
     //endregion
 
@@ -25,20 +25,19 @@ public class SessionCommunication {
     public void beginSession(){
         BaseMessage message;
 
-        while (true){
+        while (isRunning){
             try {
                 message = clientReader.read();
                 requestHandler.handle(message);
             } catch (IOException e) {
-                System.out.println(e.getMessage());
-//                endSession();
-                break;
+                endSession();
+                System.out.println("[-] Client disconnected.");
             }
         }
     }
 
     public void endSession(){
-
+        isRunning = false;
     }
 
 }

@@ -13,8 +13,8 @@
 
         <mapping resource="SqlMappings/MySqlUsersEntity.hbm.xml"/>
         <mapping class="SqlMappings.MySqlUsersEntity"/>
-        <!-- <property name="connection.username"/> -->
-        <!-- <property name="connection.password"/> -->
+        <!-- <property name="connection.Username"/> -->
+        <!-- <property name="connection.Password"/> -->
 
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
