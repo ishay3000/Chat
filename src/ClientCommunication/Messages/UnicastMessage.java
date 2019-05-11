@@ -1,21 +1,20 @@
-package ClientCommunication;
+package ClientCommunication.Messages;
 
 public class UnicastMessage extends TextMessage {
-    public String Sender;
     public String Receiver;
+    private String sender;
 
-    public UnicastMessage(EMessageType messageType, String content, String sender, String receiver) {
+    public UnicastMessage(EMessageType messageType, String content, String receiver) {
         super(messageType, content);
-        Sender = sender;
         Receiver = receiver;
     }
 
     public String getSender() {
-        return Sender;
+        return sender;
     }
 
     public void setSender(String sender) {
-        Sender = sender;
+        this.sender = sender;
     }
 
     public String getReceiver() {

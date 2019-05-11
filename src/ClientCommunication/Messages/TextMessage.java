@@ -1,4 +1,4 @@
-package ClientCommunication;
+package ClientCommunication.Messages;
 
 public class TextMessage extends BaseMessage {
     public String Content;

@@ -1,9 +1,10 @@
 package AuthService;
 
-import ClientCommunication.BaseMessage;
+import ClientCommunication.Messages.AuthMessage;
+import ClientCommunication.Messages.BaseMessage;
 import ClientCommunication.ClientResponse;
 import ClientCommunication.ClientWriter;
-import ClientCommunication.EResponseStatus;
+import ClientCommunication.Messages.EResponseStatus;
 import Dao.UserDao;
 import Server.Server;
 import SqlMappings.MySqlUsersEntity;

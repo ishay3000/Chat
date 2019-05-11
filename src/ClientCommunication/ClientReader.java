@@ -1,11 +1,10 @@
 package ClientCommunication;
 
-import AuthService.AuthMessage;
+import ClientCommunication.Messages.BaseMessage;
 import com.google.gson.Gson;
 import utils.MessageConverter;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -28,10 +27,14 @@ public class ClientReader {
     }
 
     public BaseMessage read() throws IOException{
-            byte[] buffer = new byte[64];
+            byte[] buffer = new byte[1024];
             int read = inputStream.read(buffer);
+            if (read == -1){
+                return null;
+            }
 
             String json = new String(buffer).substring(0, read);
+            System.out.println(json);
             BaseMessage tmp = gson.fromJson(json, BaseMessage.class);
 
             Class<? extends BaseMessage> typeClass = MessageConverter.convert(tmp.MessageType);

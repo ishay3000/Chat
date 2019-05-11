@@ -1,8 +1,9 @@
 package ClientCommunication;
 
 import AuthService.ClientAuthenticator;
+import ClientCommunication.Messages.BaseMessage;
+import ClientCommunication.Messages.EMessageType;
 
-import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;

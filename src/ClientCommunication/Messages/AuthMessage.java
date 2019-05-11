@@ -1,7 +1,4 @@
-package AuthService;
-
-import ClientCommunication.BaseMessage;
-import ClientCommunication.EMessageType;
+package ClientCommunication.Messages;
 
 public class AuthMessage extends BaseMessage {
     public String Username;

@@ -1,17 +1,17 @@
 package ClientCommunication;
 
+import ClientCommunication.Messages.BaseMessage;
+import ClientCommunication.Messages.BroadcastMessage;
+import ClientCommunication.Messages.EResponseStatus;
+import ClientCommunication.Messages.UnicastMessage;
 import Server.Server;
 import SqlMappings.MySqlUsersEntity;
 import com.google.gson.Gson;
-import com.mysql.cj.xdevapi.Client;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ClientWriter {
@@ -58,10 +58,13 @@ public class ClientWriter {
 
     public void unicast(BaseMessage message){
         UnicastMessage unicastMessage = (UnicastMessage)message;
-        unicastMessage.setSender(user.getUsername());
 
-        ClientWriter writer = Server.OUR_INSTANCE.getUserClient(unicastMessage.getReceiver());
-        writer.writeMessage(unicastMessage);
+        try {
+            ClientWriter writer = Server.OUR_INSTANCE.getUserClient(unicastMessage.getReceiver());
+            writer.writeMessage(unicastMessage);
+        } catch (NullPointerException e){
+            this.writeResponse(new ClientResponse(EResponseStatus.ERROR, "Couldn't send message - user not found.", message.Guid));
+        }
     }
 
     public void broadcast(BaseMessage message){

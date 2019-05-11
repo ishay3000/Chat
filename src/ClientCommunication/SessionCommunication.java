@@ -1,5 +1,7 @@
 package ClientCommunication;
 
+import ClientCommunication.Messages.BaseMessage;
+
 import java.io.IOException;
 import java.net.Socket;
 
@@ -37,6 +39,7 @@ public class SessionCommunication {
     }
 
     public void endSession(){
+        Server.Server.OUR_INSTANCE.removeClient(clientWriter);
         isRunning = false;
     }
 

@@ -1,4 +1,4 @@
-package ClientCommunication;
+package ClientCommunication.Messages;
 
 import com.google.gson.annotations.SerializedName;
 

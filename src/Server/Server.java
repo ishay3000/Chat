@@ -31,18 +31,38 @@ public class Server {
         }
     }
 
+    public String getUserName(ClientWriter clientWriter){
+        return clientsConnectedMap.entrySet()
+                .stream()
+                .filter(e -> e.getValue() == clientWriter)
+                .findFirst()
+                .get()
+                .getKey()
+                .getUsername();
+    }
+
+    public void removeClient(ClientWriter clientWriter){
+        this.clientsConnectedMap.values().remove(clientWriter);
+    }
+
     public ConcurrentHashMap<MySqlUsersEntity, ClientWriter> getClientsConnectedMap() {
         return clientsConnectedMap;
     }
 
-    public ClientWriter getUserClient(String username){
+    public ClientWriter getUserClient(String username) throws NullPointerException{
         Map.Entry entry = clientsConnectedMap.entrySet()
                 .stream()
                 .filter(e -> e.getKey().getUsername().equalsIgnoreCase(username))
                 .findFirst()
                 .orElse(null);
 
-        return (ClientWriter) Objects.requireNonNull(entry).getValue();
+        Object object = Objects.requireNonNull(entry).getValue();
+
+        if (object instanceof ClientWriter){
+            return (ClientWriter) object;
+        } else{
+            return null;
+        }
     }
 
     /**

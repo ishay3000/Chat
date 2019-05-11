@@ -1,6 +1,6 @@
-import AuthService.AuthMessage;
-import ClientCommunication.BaseMessage;
-import ClientCommunication.EMessageType;
+import ClientCommunication.Messages.AuthMessage;
+import ClientCommunication.Messages.BaseMessage;
+import ClientCommunication.Messages.EMessageType;
 import Server.Server;
 import com.google.gson.Gson;
 
