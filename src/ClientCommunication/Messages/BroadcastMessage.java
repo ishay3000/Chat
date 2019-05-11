@@ -1,7 +1,7 @@
 package ClientCommunication.Messages;
 
 public class BroadcastMessage extends TextMessage {
-    public BroadcastMessage(EMessageType messageType, String content) {
-        super(messageType, content);
+    public BroadcastMessage(String content, String sender) {
+        super(EMessageType.BROADCAST, content, sender);
     }
 }

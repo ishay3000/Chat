@@ -2,19 +2,10 @@ package ClientCommunication.Messages;
 
 public class UnicastMessage extends TextMessage {
     public String Receiver;
-    private String sender;
 
-    public UnicastMessage(EMessageType messageType, String content, String receiver) {
-        super(messageType, content);
-        Receiver = receiver;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
+    public UnicastMessage(String content, String sender, String receiver) {
+        super(EMessageType.UNICAST, content, sender);
+        this.Receiver = receiver;
     }
 
     public String getReceiver() {
@@ -22,7 +13,7 @@ public class UnicastMessage extends TextMessage {
     }
 
     public void setReceiver(String receiver) {
-        Receiver = receiver;
+        this.Receiver = receiver;
     }
 
     public String getContent() {

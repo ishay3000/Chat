@@ -17,7 +17,6 @@ public class SessionCommunication {
 
 
     public SessionCommunication(Socket clientSocket) {
-//        this.clientSocket = clientSocket;
         clientReader = new ClientReader(clientSocket);
         clientWriter = new ClientWriter(clientSocket);
 

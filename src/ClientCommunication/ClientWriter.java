@@ -58,7 +58,7 @@ public class ClientWriter {
 
     public void unicast(BaseMessage message){
         UnicastMessage unicastMessage = (UnicastMessage)message;
-
+        unicastMessage.setSender(Server.OUR_INSTANCE.getUserName(this));
         try {
             ClientWriter writer = Server.OUR_INSTANCE.getUserClient(unicastMessage.getReceiver());
             writer.writeMessage(unicastMessage);
@@ -69,6 +69,9 @@ public class ClientWriter {
 
     public void broadcast(BaseMessage message){
         BroadcastMessage broadcastMessage = (BroadcastMessage)message;
+
+        broadcastMessage.setSender(Server.OUR_INSTANCE.getUserName(this));
+
         ConcurrentHashMap map = Server.OUR_INSTANCE.getClientsConnectedMap();
         Collection<ClientWriter> values = map.values();
 
