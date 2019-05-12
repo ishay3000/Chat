@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 
 public class ClientAuthenticator {
     private ClientWriter clientWriter;
-    private final Gson gson = new Gson();
 
 
     //endregion
@@ -24,28 +23,32 @@ public class ClientAuthenticator {
 
     public void authenticateRegistration(BaseMessage message){
         AuthMessage registerMessage = (AuthMessage)message;
-        MySqlUsersEntity user = new MySqlUsersEntity(registerMessage.Username, registerMessage.Password);
 
-        EResponseStatus responseStatus = EResponseStatus.ERROR;
+        MySqlUsersEntity user = new MySqlUsersEntity(registerMessage.Username, registerMessage.Password);
+        ClientResponse response = new ClientResponse(EResponseStatus.ERROR);
         // register to db via dao
         if (UserDao.getOurInstance().add(user)){
-            responseStatus = EResponseStatus.OK;
+            response.Status = EResponseStatus.OK;
+        } else {
+            response.Cause = "User with such name already exists";
         }
-        clientWriter.writeResponse(new ClientResponse(responseStatus));
+        clientWriter.writeResponse(response);
     }
 
     public void authenticateLogin(BaseMessage message){
         AuthMessage loginMessage = (AuthMessage)message;
         MySqlUsersEntity user = new MySqlUsersEntity(loginMessage.Username, loginMessage.Password);
 
-        EResponseStatus responseStatus = EResponseStatus.ERROR;
+        ClientResponse response = new ClientResponse(EResponseStatus.ERROR);
         // login via dao
         if (UserDao.getOurInstance().exists(user)){
             // server.addUserToClientsConnected(user)
             Server.OUR_INSTANCE.addClient(user, clientWriter);
-            responseStatus = EResponseStatus.OK;
+            response.Status = EResponseStatus.OK;
+            clientWriter.setUser(user);
+        } else {
+            response.Cause = "User with such name does not exist.";
         }
-        clientWriter.setUser(user);
-        clientWriter.writeResponse(new ClientResponse(responseStatus));
+        clientWriter.writeResponse(response);
     }
 }

@@ -58,7 +58,8 @@ public class ClientWriter {
 
     public void unicast(BaseMessage message){
         UnicastMessage unicastMessage = (UnicastMessage)message;
-        unicastMessage.setSender(Server.OUR_INSTANCE.getUserName(this));
+
+        unicastMessage.setSender(this.user.getUsername());
         try {
             ClientWriter writer = Server.OUR_INSTANCE.getUserClient(unicastMessage.getReceiver());
             writer.writeMessage(unicastMessage);
